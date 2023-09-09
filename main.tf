@@ -1,3 +1,12 @@
+terraform {
+  backend "azurerm" {
+    resource_group_name = "covtracker"
+    storage_account_name = "covtrackertfstatestorage"
+    container_name = "tfstate"
+    key = "terraform.tfstate"
+  }
+}
+
 provider "azurerm" {
   features {}
 }
