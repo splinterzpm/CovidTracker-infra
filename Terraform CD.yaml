@@ -1,0 +1,31 @@
+pool:
+  name: Default
+steps:
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+  displayName: 'Install Terraform latest'
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+  displayName: 'Terraform : init'
+  inputs:
+    backendServiceArm: 'Azure subscription 1 (94d2c712-b701-45a3-b99f-179fdc03b03a)'
+    backendAzureRmResourceGroupName: covtracker
+    backendAzureRmStorageAccountName: covtrackertfstatestorage
+    backendAzureRmContainerName: tfstate
+    backendAzureRmKey: terraform.tfstate
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+  displayName: 'Terraform : validate'
+  inputs:
+    command: validate
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+  displayName: 'Terraform : plan'
+  inputs:
+    command: plan
+    environmentServiceNameAzureRM: 'Azure subscription 1 (94d2c712-b701-45a3-b99f-179fdc03b03a)'
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+  displayName: 'Terraform : apply'
+  inputs:
+    command: apply
+    environmentServiceNameAzureRM: 'Azure subscription 1 (94d2c712-b701-45a3-b99f-179fdc03b03a)'
