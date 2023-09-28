@@ -20,7 +20,6 @@ resource "azurerm_mysql_server" "mysqlserver" {
   name                = "marushov-mysqlserver"
   location            = var.location
   resource_group_name = var.resource_group_name
-  tags = var.tags
 
   administrator_login          = "***REMOVED***"
   administrator_login_password = "***REMOVED***"
@@ -62,7 +61,6 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     type = "SystemAssigned"
   }
 
-  tags = var.tags
 }
 
 resource "azurerm_container_registry" "acr" {
@@ -71,5 +69,4 @@ resource "azurerm_container_registry" "acr" {
   location            = var.location
   sku                 = "Basic"
   admin_enabled       = false
-  tags = var.tags
 }
